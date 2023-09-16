@@ -5,7 +5,6 @@ GPIO.setmode(GPIO.BCM)
 
 
 def light(port) -> None:
-    GPIO.output(port, GPIO.HIGH)
     GPIO.output(port, GPIO.LOW)
     GPIO.cleanup(port)
 
@@ -22,8 +21,9 @@ def add_command():
     number = int(request.args.get('state'))
     GPIO.setup(number, GPIO.OUT)
     GPIO.output(number, GPIO.HIGH)
-    threading.Timer(30, light, args=[number])
-    return 
+    t = threading.Timer(30, light, args=[number])
+    t.start()
+    return jsonify({'None': 'none'})
     
 
 
