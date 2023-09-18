@@ -3,8 +3,16 @@ import RPi.GPIO as GPIO
 import threading
 GPIO.setmode(GPIO.BCM)
 ACTIVE_PORTS = set()
-filename = 'pic.gif'
+FILENAME = 'pic.gif'
+ERROR_FILE = 'error.jpeg'
 
+
+def error_handler(function):
+    def wrapper(*args, **kwargs):
+        try:
+            function(*args, **kwargs)
+        except Exception as ex:
+            return send_file(ERROR_FILE, minetype='image/jpeg')
 
 def light(port) -> None:
     GPIO.output(port, GPIO.LOW)
@@ -17,10 +25,19 @@ app = Flask(__name__)
 
 commands = {'lights': 0}
 
+"""
+def int_or(v: str, unexpected: int, error: str | None = None):
+    try:
+        return int(v), None
+    except Exception as error:
+        return unexpected, error
+"""
 
+
+@error_handler
 @app.route('/set_lights', methods=['GET'])
 def add_command():
-    number = int(request.args.get('port'))
+    number, err = int_or(request.args.get('port'))
     pwm = request.args.get('pwm', default=None)
     pwm = int(pwm) if pwm != None else None
     if pwm != None:
@@ -35,17 +52,22 @@ def add_command():
     return jsonify({'Active ports': list(ACTIVE_PORTS)})
 
 
+@error_handler
 @app.route('/get_lights', methods=['GET'])
 def get_commands():
     return jsonify({"commands": commands['lights']})
 
 
+@error_handler
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
     if request.remote_addr == '192.168.233.163':
         return send_file(filename, mimetype='image/gif')
     else:
         return jsonify({'ip': request.remote_addr}), 200
+
+
+
 
 
 if __name__ == '__main__':
