@@ -15,4 +15,4 @@ jobs:
       - name: install flake8
         run: python3 -m pip install flake8
       - name: run flake8
-        run: flake8 --ignore=E501 raspberry
+        run: flake8 --append-config=".flake8"
