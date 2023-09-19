@@ -51,7 +51,7 @@ class RaspberryServer(Flask):
 
 
 def main() -> int:
-    server = RaspberryServer("localhost", 8080)
+    server = RaspberryServer("0.0.0.0", 8080)
     server.run_debug()
     return 0
 

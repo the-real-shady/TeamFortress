@@ -7,6 +7,9 @@
     ```bash
     python3 -m venv ".venv"
     pip install -r requirements.txt
+
+    # Optionally
+    export PYTHONDONTWRITEBYTECODE=1
     ```
 
 ## Техническое задание
@@ -20,3 +23,7 @@
 ## Конфигурация аппаратной части Slave на Arduino
 1. Наличие следующих датчиков: ```Температура, влажность, датчик уровня воды, освещенности```
 1. Система управления: ```Помпами, светом, клапанами```
+
+## Лицензия
+- Тексты и схемы доступны под открытой лицензией _[GPL v3](./LICENSE)_.
+- SPDX-License-Identifier: GPL-3.0
