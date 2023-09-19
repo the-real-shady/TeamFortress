@@ -1,5 +1,7 @@
 # TeamFortress
 
+[![pre-commit](https://github.com/the-real-shady/TeamFortress/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/the-real-shady/TeamFortress/actions/workflows/pre-commit.yaml)
+
 ## Сборка
 - Виртуальное окружение:
     ```bash
