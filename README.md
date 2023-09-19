@@ -7,9 +7,11 @@
     ```bash
     python3 -m venv ".venv"
     pip install -r requirements.txt
-
-    # Optionally
     export PYTHONDONTWRITEBYTECODE=1
+    ```
+- Эмуляция ```RPi.GPIO``` (_для разработки за пределами raspberry_):
+    ```bash
+    pip install ./rpi-gpio
     ```
 
 ## Техническое задание
