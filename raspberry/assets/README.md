@@ -1,8 +1,9 @@
-## Assets folder structure
-- **CSS** files should be located under ```css``` folder
-- **HTML** files should be located under ```html``` folder
-- **JAVASCRIPT** files should be located under ```js``` folder
-- **ICONS** files should be located under ```icons``` folder
+## Структура
+- **CSS** файлы должны находиться в папке ```css```
+- **HTML** файлы должны находиться в папке ```html```
+- **JAVASCRIPT** файлы должны находиться в папке ```js```
+- **ICONS** файлы должны находиться в папке ```icons```
 
-## Important
-- If you have changed the existing folder name, take a look [asset manager](../scripts/asset.py) and make sure that you change the folder name for it as well.
+## Важно
+- Если вы меняете название уже существущей здесь (_или описанной в этом файле под загаловком [структура](#структура) папки_), не забудьте изменить ее название и в [asset manager](../scripts/asset.py).
+- Если вы создали новую папку, добавьте для нее функцию-ссылку (_на примере уже существующих там_) в [asset manager](../scripts/asset.py).
