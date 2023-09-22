@@ -1,6 +1,7 @@
 from flask import Flask
 from view import View
 import importlib.util
+from asset import AssetManager
 import sys
 import os
 
@@ -51,6 +52,8 @@ class RaspberryServer(Flask):
 
 
 def main() -> int:
+    AssetManager.init()
+
     server = RaspberryServer("0.0.0.0", 8080)
     server.run_debug()
     return 0

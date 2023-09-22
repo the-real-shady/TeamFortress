@@ -41,8 +41,8 @@ class View(views.View):
 
         Returns
         -------
-        flask.Response
-            Response object
+        flask.ResponseReturnValue
+            Any object convertible to response
         """
         raise NotImplementedError()
 
