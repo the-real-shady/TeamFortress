@@ -1,4 +1,4 @@
-from flask import Flask
+import flask
 from view import View
 import importlib.util
 from asset import AssetManager
@@ -6,7 +6,7 @@ import sys
 import os
 
 
-class RaspberryServer(Flask):
+class RaspberryServer(flask.Flask):
     @staticmethod
     def find_views() -> list[tuple[str, str]]:
         """
@@ -40,9 +40,20 @@ class RaspberryServer(Flask):
             spec.loader.exec_module(module)
 
         for view in View.enumerate_children():
-            if not hasattr(view, "route"):
-                raise NotImplementedError(f"View {view.__class__} does not contain \"route\" field")
+            self._create_url_view(view)
+
+    def _create_url_view(self, view: type[View]) -> None:
+        if hasattr(view, "route"):
             self.add_url_rule(view.route, view_func=view.as_view(view.__name__))
+            return
+
+        if hasattr(view, "routes"):
+            for route in view.routes:
+                name = f"{view.__name__}_{route[1:]}"
+                self.add_url_rule(route, view_func=view.as_view(name, route=route))
+            return
+
+        raise NotImplementedError(f"View {view.__class__} does not contain \"route\" field")
 
     def run_debug(self) -> None:
         return self.run(self.addr, self.port, True)
@@ -54,7 +65,13 @@ class RaspberryServer(Flask):
 def main() -> int:
     AssetManager.init()
 
-    server = RaspberryServer("0.0.0.0", 8080)
+    ip_address = "0.0.0.0"
+
+    ENV_IP_NAME = "RASPBERRY_SERVER_IP"
+    if ENV_IP_NAME in os.environ:
+        ip_address = os.environ[ENV_IP_NAME]
+
+    server = RaspberryServer(ip_address, 8080)
     server.run_debug()
     return 0
 

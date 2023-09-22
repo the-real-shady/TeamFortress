@@ -48,6 +48,11 @@ class AssetManager:
         return AssetManager.get_path(os.path.join("js", name))
 
     @staticmethod
+    def get_icon(name: str) -> str:
+        """Alias for "get_path: function, to access icons"""
+        return AssetManager.get_path(os.path.join("icons", name))
+
+    @staticmethod
     def init() -> None:
         """Initialize the asset manager"""
         raspberry = os.path.dirname(os.path.dirname(__file__))
