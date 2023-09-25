@@ -4,7 +4,7 @@ from view import View
 
 
 class AboutView(View):
-    route = "/about"
+    route = "/"
 
     def on_request(self, _):
         index = AssetManager.get_html("about/index.html")
